@@ -4,7 +4,6 @@ go 1.17
 
 require (
 	github.com/magefile/mage v1.11.0
-	github.com/mcandre/karp v0.0.4
 	github.com/mcandre/mage-extras v0.0.6
 )
 
