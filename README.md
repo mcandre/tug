@@ -27,6 +27,10 @@ $ docker run --rm mcandre/tug-demo cat /banner
 Hello World!
 ```
 
+# MOTIVATION
+
+Multi-platform images help developers serve users across more environments. For example, a developer working with Docker on a classic workstation (linux/amd64), with users consuming the image on a modern M1 Mac or Raspberry Pi (arm64). Multi-platform images are the glue that binds these necessary software components together in a working fashion.
+
 # DOCUMENTATION
 
 https://godoc.org/github.com/mcandre/tug
