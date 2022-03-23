@@ -29,7 +29,15 @@ Hello World!
 
 # MOTIVATION
 
+Why Docker?
+
+Docker containerization technology has revolutionized software. Developers can enjoy easier development environment setup. Enormous amounts of disk space can be freed up when switching between different software projects. The entire build environment can be simulated accurately, ensuring new contributors can quickly iterate on the product. For users, cloud services running in Kubernetes containers exhibit a much higher degree of precision and reliability, compared with older, manual ways of system administration. Docker did not invent build reproducibility or container technology, but Docker's ease of use and the popular Docker Hub registry have paved the way for widespread adoption of modern software organization principles.
+
+Why multi-platform?
+
 Multi-platform images help developers to serve users across more user environments. For example, a developer who builds Docker images from a classic workstation (amd64) can more confidently support users consuming the images on a modern M1 Mac or Raspberry Pi (arm64). Multi-platform images are the glue that binds these software components together in a working fashion.
+
+Why tug?
 
 In particular, the docker buildx subsystem provides fundamental operations in support of managing multi-platform images. However, Docker has grown to a large, complicated supersystem requiring a significant amount of handholding for common tasks. This presents the opportunity for tug to come by and pick up the slack. tug simply chains together buildx primitives into larger, more practical workflows.
 
