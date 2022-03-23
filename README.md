@@ -41,6 +41,14 @@ https://github.com/mcandre/tug/releases
 $ go install github.com/mcandre/tug/cmd/tug@latest
 ```
 
+# RUNTIME REQUIREMENTS
+
+* [Docker](https://www.docker.com/) v20.10.12+
+
+# CONTRIBUTING
+
+For more information on developing tug itself, see [DEVELOPMENT.md](DEVELOPMENT.md).
+
 # LICENSE
 
 FreeBSD
@@ -62,14 +70,6 @@ FreeBSD
 `tug -clean` empties the buildx image cache and removes the `tug` builder.
 
 See `tug -help` for more detail.
-
-# RUNTIME REQUIREMENTS
-
-* [Docker](https://www.docker.com/) v20.10.12+
-
-# CONTRIBUTING
-
-For more information on developing tug itself, see [DEVELOPMENT.md](DEVELOPMENT.md).
 
 # tug-in-docker
 
