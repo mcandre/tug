@@ -29,7 +29,7 @@ Hello World!
 
 # MOTIVATION
 
-Multi-platform images help developers to serve users across more user environments. For example, a developer who builds Docker images from a classic workstation (linux/amd64) can more confidently support users consuming the images on a modern M1 Mac or Raspberry Pi (arm64). Multi-platform images are the glue that binds these software components together in a working fashion.
+Multi-platform images help developers to serve users across more user environments. For example, a developer who builds Docker images from a classic workstation (amd64) can more confidently support users consuming the images on a modern M1 Mac or Raspberry Pi (arm64). Multi-platform images are the glue that binds these software components together in a working fashion.
 
 In particular, the docker buildx subsystem provides fundamental operations in support of managing multi-platform images. However, Docker has grown to a large, complicated supersystem requiring a significant amount of handholding for common tasks. This presents the opportunity for tug to come by and pick up the slack. tug simply chains together buildx primitives into larger, more practical workflows.
 
