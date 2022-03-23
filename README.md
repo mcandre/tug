@@ -13,10 +13,6 @@ Spend less time managing buildx images. Enjoy more time developing your core app
 ```console
 $ cd example
 
-$ cat Dockerfile
-FROM busybox
-RUN echo "Hello World!" >/banner
-
 $ tug -t mcandre/tug-demo -exclude-arch mips64
 
 $ tug -ls mcandre/tug-demo
