@@ -35,6 +35,10 @@ Hello World!
 
 https://godoc.org/github.com/mcandre/tug
 
+# DOWNLOAD
+
+https://github.com/mcandre/tug/releases
+
 # INSTALL FROM SOURCE
 
 ```console
