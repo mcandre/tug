@@ -17,6 +17,7 @@ var flagExcludeArch = flag.String("exclude-arch", "", "exclude architecture targ
 var flagGetPlatforms = flag.Bool("get-platforms", false, "Get available buildx platforms")
 var flagLs = flag.String("ls", "", "List buildx cache for the given image name, of the form name[:tag]")
 var flagT = flag.String("t", "", "Docker image name, of the form name[:tag]")
+var flagJobs = flag.Int("jobs", 4, "Number of concurrent build jobs. Zero indicates no restriction.")
 var flagClean = flag.Bool("clean", false, "Remove junk resources (buildx cache; buildx builder)")
 var flagHelp = flag.Bool("help", false, "Show usage information")
 var flagVersion = flag.Bool("version", false, "Show version information")
@@ -55,11 +56,6 @@ func main() {
 		os.Exit(0)
 	}
 
-	if err := tug.EnsureTugBuilder(); err != nil {
-		fmt.Fprintf(os.Stderr, "%v", err)
-		os.Exit(1)
-	}
-
 	job, err := tug.NewJob()
 
 	if err != nil {
@@ -73,6 +69,7 @@ func main() {
 	}
 
 	job.ImageName = flagT
+	job.BatchSize = *flagJobs
 	job.Push = *flagPush
 	job.OsExclusions = strings.Split(*flagExcludeOS, " ")
 	job.ArchExclusions = strings.Split(*flagExcludeArch, " ")

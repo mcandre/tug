@@ -145,8 +145,12 @@ func EnsureTugBuilder() error {
 	return EnsureTugBuilderBootstrapped()
 }
 
-// AvailablePlatforms reports the available buildx platforms.
+// AvailablePlatforms initializes tug and reports the available buildx platforms.
 func AvailablePlatforms() ([]Platform, error) {
+	if err := EnsureTugBuilder(); err != nil {
+		return nil, err
+	}
+
 	cmd := exec.Command("docker")
 	cmd.Args = []string{"docker", "buildx", "inspect", TugBuilderName}
 	cmd.Env = os.Environ()

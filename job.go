@@ -41,11 +41,15 @@ type Job struct {
 	// of the form name[:tag].
 	ImageName *string
 
+	// BatchSize restricts the number of concurrent builds.
+	// Zero indicates no restriction.
+	BatchSize int
+
 	// Directory denotes the Docker build directory (defaults behavior assumes the current working directory).
 	Directory string
 }
 
-// NewJob generates a default Job.
+// NewJob initializes tug and generates a default Job.
 func NewJob() (*Job, error) {
 	platforms, err := AvailablePlatforms()
 
@@ -62,8 +66,8 @@ func NewJob() (*Job, error) {
 	return &Job{Builder: TugBuilderName, Platforms: platforms, Directory: cwd}, nil
 }
 
-// Run executes a Job.
-func (o Job) Run() error {
+// runBatch executes a batch of platforms.
+func (o Job) runBatch() error {
 	cmd := exec.Command("docker")
 	cmd.Env = os.Environ()
 	cmd.Stderr = os.Stderr
@@ -78,6 +82,39 @@ func (o Job) Run() error {
 	cmd.Args = append(cmd.Args, "build")
 
 	var platformPairs []string
+
+	for _, platform := range o.Platforms {
+		platformPairs = append(platformPairs, platform.Format())
+	}
+
+	cmd.Args = append(cmd.Args, "--platform")
+
+	if o.LoadPlatform == nil {
+		cmd.Args = append(cmd.Args, strings.Join(platformPairs, ","))
+	} else {
+		cmd.Args = append(cmd.Args, *o.LoadPlatform)
+		cmd.Args = append(cmd.Args, "--load")
+	}
+
+	if o.Push {
+		cmd.Args = append(cmd.Args, "--push")
+	}
+
+	cmd.Args = append(cmd.Args, "-t")
+	cmd.Args = append(cmd.Args, *o.ImageName)
+
+	cmd.Args = append(cmd.Args, o.Directory)
+
+	if o.Debug {
+		log.Printf("Command: %v\n", cmd)
+	}
+
+	return cmd.Run()
+}
+
+// Run schedules builds.
+func (o Job) Run() error {
+	var platforms []Platform
 
 	for _, platform := range o.Platforms {
 		var excludedOs bool
@@ -106,30 +143,35 @@ func (o Job) Run() error {
 			continue
 		}
 
-		platformPairs = append(platformPairs, platform.Format())
+		platforms = append(platforms, platform)
 	}
 
-	cmd.Args = append(cmd.Args, "--platform")
+	o.Platforms = platforms
 
-	if o.LoadPlatform == nil {
-		cmd.Args = append(cmd.Args, strings.Join(platformPairs, ","))
-	} else {
-		cmd.Args = append(cmd.Args, *o.LoadPlatform)
-		cmd.Args = append(cmd.Args, "--load")
+	batchSize := o.BatchSize
+
+	if batchSize == 0 {
+		return o.runBatch()
 	}
 
-	if o.Push {
-		cmd.Args = append(cmd.Args, "--push")
+	var platformGroups [][]Platform
+
+	for len(o.Platforms) != 0 {
+		if len(o.Platforms) < batchSize {
+			batchSize = len(o.Platforms)
+		}
+
+		platformGroups = append(platformGroups, o.Platforms[0:batchSize])
+		o.Platforms = o.Platforms[batchSize:]
 	}
 
-	cmd.Args = append(cmd.Args, "-t")
-	cmd.Args = append(cmd.Args, *o.ImageName)
+	for _, platformGroup := range platformGroups {
+		o.Platforms = platformGroup
 
-	cmd.Args = append(cmd.Args, o.Directory)
-
-	if o.Debug {
-		log.Printf("Command: %v\n", cmd)
+		if err := o.runBatch(); err != nil {
+			return err
+		}
 	}
 
-	return cmd.Run()
+	return nil
 }
