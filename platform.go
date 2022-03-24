@@ -145,35 +145,6 @@ func EnsureTugBuilder() error {
 	return EnsureTugBuilderBootstrapped()
 }
 
-// RemoveBuildxImageCache deletes any images/layers in the active buildx cache.
-func RemoveBuildxImageCache() error {
-	cmd := exec.Command("docker")
-	cmd.Args = []string{"docker", "buildx", "prune", "--force", "--all"}
-	cmd.Env = os.Environ()
-	cmd.Stderr = os.Stderr
-	cmd.Stdout = os.Stdout
-	return cmd.Run()
-}
-
-// RemoveTugBuilder deletes the tug buildx builder.
-func RemoveTugBuilder() error {
-	cmd := exec.Command("docker")
-	cmd.Args = []string{"docker", "buildx", "rm", TugBuilderName}
-	cmd.Env = os.Environ()
-	cmd.Stderr = os.Stderr
-	cmd.Stdout = os.Stdout
-	return cmd.Run()
-}
-
-// Clean empties the active buildx image cache and removes the tug builder.
-func Clean() error {
-	if err := RemoveBuildxImageCache(); err != nil {
-		return err
-	}
-
-	return RemoveTugBuilder()
-}
-
 // AvailablePlatforms reports the available buildx platforms.
 func AvailablePlatforms() ([]Platform, error) {
 	cmd := exec.Command("docker")

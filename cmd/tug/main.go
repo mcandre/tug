@@ -17,7 +17,7 @@ var flagExcludeArch = flag.String("exclude-arch", "", "exclude architecture targ
 var flagGetPlatforms = flag.Bool("get-platforms", false, "Get available buildx platforms")
 var flagLs = flag.String("ls", "", "List buildx cache for the given image name, of the form name[:tag]")
 var flagT = flag.String("t", "", "Docker image name, of the form name[:tag]")
-var flagClean = flag.Bool("clean", false, "Remove junk resources")
+var flagClean = flag.Bool("clean", false, "Remove junk resources (buildx cache; buildx builder; qemu processes)")
 var flagHelp = flag.Bool("help", false, "Show usage information")
 var flagVersion = flag.Bool("version", false, "Show version information")
 
@@ -26,12 +26,7 @@ func main() {
 
 	switch {
 	case *flagClean:
-		if err := tug.Clean(); err != nil {
-			fmt.Fprintf(os.Stderr, "%v", err)
-			os.Exit(1)
-		}
-
-		os.Exit(0)
+		os.Exit(tug.Clean())
 	case *flagHelp:
 		flag.PrintDefaults()
 		os.Exit(0)
