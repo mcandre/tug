@@ -12,6 +12,7 @@ import (
 var flagDebug = flag.Bool("debug", false, "Enable additional logging")
 var flagLoad = flag.String("load", "", "Load image of the given platform into local Docker registry as a side effect")
 var flagPush = flag.Bool("push", false, "Push all Docker image artifacts to Docker registry as a side effect")
+var flagPlatforms = flag.String("platforms", "", "append additional platforms (space delimited)")
 var flagExcludeOS = flag.String("exclude-os", "", "exclude operating system targets (space delimited)")
 var flagExcludeArch = flag.String("exclude-arch", "", "exclude architecture targets (space delimited)")
 var flagGetPlatforms = flag.Bool("get-platforms", false, "Get available buildx platforms")
@@ -63,6 +64,21 @@ func main() {
 	}
 
 	job.Debug = *flagDebug
+
+	if *flagPlatforms != "" {
+		extraPlatformStrings := strings.Split(*flagPlatforms, " ")
+
+		for _, extraPlatformString := range extraPlatformStrings {
+			extraPlatform, err2 := tug.ParsePlatform(extraPlatformString)
+
+			if err2 != nil {
+				fmt.Fprintf(os.Stderr, "%v", err2)
+				os.Exit(1)
+			}
+
+			job.Platforms = append(job.Platforms, *extraPlatform)
+		}
+	}
 
 	if *flagLoad != "" {
 		job.LoadPlatform = flagLoad

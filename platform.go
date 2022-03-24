@@ -171,3 +171,34 @@ func AvailablePlatforms() ([]Platform, error) {
 	sort.Sort(Platforms(platforms))
 	return platforms, nil
 }
+
+// AntiquePlatforms are eligible for implicit exclusion by default.
+var AntiquePlatforms = []Platform{
+	{
+		"linux",
+		"mips64",
+	},
+}
+
+// DisableAntiquePlatforms filters out some exceedingly niche platforms,
+// which may not have associated base image entries in Docker Hub.
+func DisableAntiquePlatforms(platforms []Platform) []Platform {
+	var out []Platform
+
+	for _, platform := range platforms {
+		var foundAntique bool
+
+		for _, antique := range AntiquePlatforms {
+			if platform == antique {
+				foundAntique = true
+				break
+			}
+		}
+
+		if !foundAntique {
+			out = append(out, platform)
+		}
+	}
+
+	return out
+}

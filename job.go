@@ -63,13 +63,21 @@ func NewJob() (*Job, error) {
 		return nil, err
 	}
 
-	return &Job{Builder: TugBuilderName, Platforms: platforms, Directory: cwd}, nil
+	return &Job{
+		Builder:   TugBuilderName,
+		Platforms: DisableAntiquePlatforms(platforms),
+		Directory: cwd,
+	}, nil
 }
 
 // runBatch executes a batch of platforms.
 func (o Job) runBatch() error {
 	cmd := exec.Command("docker")
 	cmd.Env = os.Environ()
+
+	// Work around spurious buildx warnings
+	cmd.Env = append(cmd.Env, "BUILDX_NO_DEFAULT_LOAD=true")
+
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
 	cmd.Args = []string{"docker", "buildx"}
@@ -100,9 +108,7 @@ func (o Job) runBatch() error {
 		cmd.Args = append(cmd.Args, "--push")
 	}
 
-	cmd.Args = append(cmd.Args, "-t")
-	cmd.Args = append(cmd.Args, *o.ImageName)
-
+	cmd.Args = append(cmd.Args, "-t", *o.ImageName)
 	cmd.Args = append(cmd.Args, o.Directory)
 
 	if o.Debug {

@@ -13,7 +13,7 @@ Spend less time managing buildx images. Enjoy more time developing your core app
 ```console
 $ cd example
 
-$ tug -t mcandre/tug-demo -exclude-arch mips64
+$ tug -t mcandre/tug-demo
 
 $ tug -ls mcandre/tug-demo
 Platform:  linux/386
@@ -76,7 +76,8 @@ FreeBSD
 `tug -t <name>` builds multi-platform images into the buildx cache, of the form `name[:tag]`.
 
 * `-debug` enables additional logging. In case of some buildx error.
-* `-exclude-os <list>` / `-exclude-arch <list>` skip the specified operating systems and/or architectures. For example, any platform variants unsupported by your `FROM` base image.
+* `-platforms <list>` enables additional platforms. By default, tug targets all available supported platforms, minus any antiques; See [API documentation](https://godoc.org/github.com/mcandre/tug). The list is space delimited.
+* `-exclude-os <list>` / `-exclude-arch <list>` skip the specified operating systems and/or architectures. For example, any variants unsupported by your `FROM` base image. The list is space delimited.
 * `-load <platform>` copies an image to the local Docker registry as a side effect of the build. By default, Docker does not copy any buildx images to the local Docker registry as witnessed by `docker image`, `docker run`, etc. Select an appropriate `linux/<architecture>` platform based on your host machine. Typically `-load linux/amd64` for traditional hosts, or `-load linux/arm64` for newer arm64 hosts.
 * `-push` uploads buildx cached images to the remote Docker registry, as a side effect of the image build process. This works around gaps in the buildx subsystem for conventional build, push workflows.
 * `.` or `<directory>` are optional trailing arguments for the Docker build directory. We default to the current working directory.
