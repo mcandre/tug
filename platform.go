@@ -70,8 +70,8 @@ func (o Platforms) Less(i int, j int) bool {
 	return o[i].Format() < o[j].Format()
 }
 
-// EnsureTugBuilderExists creates a tug buildx builder when necessary.
-func EnsureTugBuilderExists() error {
+// EnsureTugBuilder prepares the tug buildx builder.
+func EnsureTugBuilder() error {
 	cmd := exec.Command("docker")
 	cmd.Args = []string{"docker", "buildx", "ls"}
 	cmd.Env = os.Environ()
@@ -105,44 +105,13 @@ func EnsureTugBuilderExists() error {
 
 	if !foundTugBuilder {
 		cmd := exec.Command("docker")
-		cmd.Args = []string{"docker", "buildx", "create", "--name", TugBuilderName}
+		cmd.Args = []string{"docker", "buildx", "create", "--bootstrap", "--name", TugBuilderName}
 		cmd.Env = os.Environ()
 		cmd.Stderr = os.Stderr
 		return cmd.Run()
 	}
 
 	return nil
-}
-
-// EnsureTugBuilderInUse activates the tug buildx builder.
-func EnsureTugBuilderInUse() error {
-	cmd := exec.Command("docker")
-	cmd.Args = []string{"docker", "buildx", "use", TugBuilderName}
-	cmd.Env = os.Environ()
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
-}
-
-// EnsureTugBuilderBootstrapped prepares the tug buildx builder for building.
-func EnsureTugBuilderBootstrapped() error {
-	cmd := exec.Command("docker")
-	cmd.Args = []string{"docker", "buildx", "inspect", "--bootstrap"}
-	cmd.Env = os.Environ()
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
-}
-
-// EnsureTugBuilder fully initializes the tug buildx builder.
-func EnsureTugBuilder() error {
-	if err := EnsureTugBuilderExists(); err != nil {
-		return err
-	}
-
-	if err := EnsureTugBuilderInUse(); err != nil {
-		return err
-	}
-
-	return EnsureTugBuilderBootstrapped()
 }
 
 // AvailablePlatforms initializes tug and reports the available buildx platforms.
@@ -200,6 +169,5 @@ func AvailablePlatforms() ([]Platform, error) {
 	}
 
 	sort.Sort(Platforms(platforms))
-
 	return platforms, nil
 }

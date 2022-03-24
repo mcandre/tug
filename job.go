@@ -79,7 +79,7 @@ func (o Job) runBatch() error {
 		return cmd.Run()
 	}
 
-	cmd.Args = append(cmd.Args, "build")
+	cmd.Args = append(cmd.Args, "build", "--builder", TugBuilderName)
 
 	var platformPairs []string
 
@@ -165,12 +165,24 @@ func (o Job) Run() error {
 		o.Platforms = o.Platforms[batchSize:]
 	}
 
+	//
+	// Work around corruption glitch in buildx --push.
+	//
+	push := o.Push
+	o.Push = false
+
 	for _, platformGroup := range platformGroups {
 		o.Platforms = platformGroup
 
 		if err := o.runBatch(); err != nil {
 			return err
 		}
+	}
+
+	if push {
+		o.Push = true
+		o.Platforms = platforms
+		return o.runBatch()
 	}
 
 	return nil
