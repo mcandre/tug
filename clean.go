@@ -4,9 +4,6 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"strings"
-
-	ps "github.com/mitchellh/go-ps"
 )
 
 // RemoveBuildxImageCache deletes any images/layers in the active buildx cache.
@@ -29,36 +26,8 @@ func RemoveTugBuilder() error {
 	return cmd.Run()
 }
 
-// TerminateQemuProcesses ends any qemu processes.
-func TerminateQemuProcesses() error {
-	processes, err := ps.Processes()
-
-	if err != nil {
-		return err
-	}
-
-	for _, process := range processes {
-		executable := process.Executable()
-
-		if strings.HasPrefix(executable, "qemu-") {
-			p, err := os.FindProcess(process.Pid())
-
-			if err != nil {
-				return err
-			}
-
-			if err2 := p.Kill(); err2 != nil {
-				return err2
-			}
-		}
-	}
-
-	return nil
-}
-
-// Clean empties the active buildx image cache,
-// removes the tug builder,
-// and terminates any qemu processes.
+// Clean empties the active buildx image cache
+// and removes the tug builder,
 //
 // Returns zero on successful operation. Otherwise, returns non-zero.
 func Clean() int {
@@ -70,11 +39,6 @@ func Clean() int {
 	}
 
 	if err := RemoveTugBuilder(); err != nil {
-		fmt.Fprintf(os.Stderr, "%v", err)
-		status = 1
-	}
-
-	if err := TerminateQemuProcesses(); err != nil {
 		fmt.Fprintf(os.Stderr, "%v", err)
 		status = 1
 	}

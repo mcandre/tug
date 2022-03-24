@@ -81,7 +81,7 @@ FreeBSD
 * `-push` uploads buildx cached images to the remote Docker registry, as a side effect of the image build process. This works around gaps in the buildx subsystem for conventional build, push workflows.
 * `.` or `<directory>` are optional trailing arguments for the Docker build directory. We default to the current working directory.
 
-`tug -clean` empties the buildx image cache, removes the `tug` builder, and terminates any `qemu-`... processes.
+`tug -clean` empties the buildx image cache and removes the `tug` builder.
 
 See `tug -help` for more detail.
 

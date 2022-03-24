@@ -13,6 +13,3 @@ github.com/mcandre/mage-extras
 # github.com/mcandre/zipc v0.0.4
 ## explicit; go 1.13
 github.com/mcandre/zipc
-# github.com/mitchellh/go-ps v1.0.0
-## explicit; go 1.13
-github.com/mitchellh/go-ps
