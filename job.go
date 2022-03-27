@@ -45,6 +45,9 @@ type Job struct {
 	// Zero indicates no restriction.
 	BatchSize int
 
+	// ExtraFlags sends additional command line flags to docker buildx build commands.
+	ExtraFlags []string
+
 	// Directory denotes the Docker build directory (defaults behavior assumes the current working directory).
 	Directory string
 
@@ -117,6 +120,7 @@ func (o Job) runBatch() error {
 		cmd.Args = append(cmd.Args, "-f", o.DockerfileSource)
 	}
 
+	cmd.Args = append(cmd.Args, o.ExtraFlags...)
 	cmd.Args = append(cmd.Args, o.Directory)
 
 	if o.Debug {

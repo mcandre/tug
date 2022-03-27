@@ -80,6 +80,7 @@ FreeBSD
 * `-exclude-os <list>` / `-exclude-arch <list>` skip the specified operating systems and/or architectures. For example, any variants unsupported by your `FROM` base image. The list is space delimited.
 * `-load <platform>` copies an image to the local Docker registry as a side effect of the build. By default, Docker does not copy any buildx images to the local Docker registry as witnessed by `docker image`, `docker run`, etc. Select an appropriate `linux/<architecture>` platform based on your host machine. Typically `-load linux/amd64` for traditional hosts, or `-load linux/arm64` for newer arm64 hosts.
 * `-push` uploads buildx cached images to the remote Docker registry, as a side effect of the image build process. This works around gaps in the buildx subsystem for conventional build, push workflows.
+* `-extra <list>` sends additional command line flags to `docker buildx build` commands. The list is comma delimited.
 * `.` or `<directory>` are optional trailing arguments for the Docker build directory. We default to the current working directory.
 
 `tug -clean` empties the buildx image cache and removes the `tug` builder.
