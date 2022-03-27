@@ -57,7 +57,7 @@ $ go install github.com/mcandre/tug/cmd/tug@latest
 
 # RUNTIME REQUIREMENTS
 
-* [Docker](https://www.docker.com/) v20.10.12+
+* [Docker](https://www.docker.com/) 20.10.12+
 
 # CONTRIBUTING
 
