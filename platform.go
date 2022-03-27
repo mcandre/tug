@@ -10,8 +10,11 @@ import (
 	"strings"
 )
 
-// TugBuilderName denotes the name used for the buildx builder.
+// TugBuilderName denotes the name of the buildx builder.
 const TugBuilderName = "tug"
+
+// TugNodeName denotes the name of the buildx node.
+const TugNodeName = "tug0"
 
 // TugBuilderPattern denotes the pattern used to search for the tug builder within the buildx builder list.
 var TugBuilderPattern = regexp.MustCompile(`^tug\W+`)
@@ -73,45 +76,10 @@ func (o Platforms) Less(i int, j int) bool {
 // EnsureTugBuilder prepares the tug buildx builder.
 func EnsureTugBuilder() error {
 	cmd := exec.Command("docker")
-	cmd.Args = []string{"docker", "buildx", "ls"}
+	cmd.Args = []string{"docker", "buildx", "create", "--bootstrap", "--name", TugBuilderName, "--node", TugNodeName}
 	cmd.Env = os.Environ()
 	cmd.Stderr = os.Stderr
-	stdoutChild, err := cmd.StdoutPipe()
-
-	if err != nil {
-		return err
-	}
-
-	if err := cmd.Start(); err != nil {
-		return err
-	}
-
-	scanner := bufio.NewScanner(stdoutChild)
-
-	var foundTugBuilder bool
-
-	for scanner.Scan() {
-		line := scanner.Text()
-
-		if TugBuilderPattern.MatchString(line) {
-			foundTugBuilder = true
-			break
-		}
-	}
-
-	if err := cmd.Wait(); err != nil {
-		return err
-	}
-
-	if !foundTugBuilder {
-		cmd := exec.Command("docker")
-		cmd.Args = []string{"docker", "buildx", "create", "--bootstrap", "--name", TugBuilderName}
-		cmd.Env = os.Environ()
-		cmd.Stderr = os.Stderr
-		return cmd.Run()
-	}
-
-	return nil
+	return cmd.Run()
 }
 
 // AvailablePlatforms initializes tug and reports the available buildx platforms.
@@ -172,30 +140,30 @@ func AvailablePlatforms() ([]Platform, error) {
 	return platforms, nil
 }
 
-// AntiquePlatforms are eligible for implicit exclusion by default.
-var AntiquePlatforms = []Platform{
+// NichePlatforms may be disabled by default.
+var NichePlatforms = []Platform{
 	{
 		"linux",
 		"mips64",
 	},
 }
 
-// DisableAntiquePlatforms filters out some exceedingly niche platforms,
-// which may not have associated base image entries in Docker Hub.
-func DisableAntiquePlatforms(platforms []Platform) []Platform {
+// DisableNichePlatforms filters out some exceedingly niche platforms,
+// which may not have associated base image entries on Docker Hub.
+func DisableNichePlatforms(platforms []Platform) []Platform {
 	var out []Platform
 
 	for _, platform := range platforms {
-		var foundAntique bool
+		var foundNiche bool
 
-		for _, antique := range AntiquePlatforms {
-			if platform == antique {
-				foundAntique = true
+		for _, niche := range NichePlatforms {
+			if platform == niche {
+				foundNiche = true
 				break
 			}
 		}
 
-		if !foundAntique {
+		if !foundNiche {
 			out = append(out, platform)
 		}
 	}

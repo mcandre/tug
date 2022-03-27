@@ -65,7 +65,7 @@ func NewJob() (*Job, error) {
 
 	return &Job{
 		Builder:   TugBuilderName,
-		Platforms: DisableAntiquePlatforms(platforms),
+		Platforms: DisableNichePlatforms(platforms),
 		Directory: cwd,
 	}, nil
 }

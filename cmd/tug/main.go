@@ -54,6 +54,15 @@ func main() {
 			fmt.Println(platform.Format())
 		}
 
+		fmt.Println()
+
+		var nichePlatformStrings []string
+
+		for _, niche := range tug.NichePlatforms {
+			nichePlatformStrings = append(nichePlatformStrings, niche.Format())
+		}
+
+		fmt.Printf("niche (disabled by default): %v\n", strings.Join(nichePlatformStrings, " "))
 		os.Exit(0)
 	}
 
