@@ -47,6 +47,9 @@ type Job struct {
 
 	// Directory denotes the Docker build directory (defaults behavior assumes the current working directory).
 	Directory string
+
+	// DockerfileSource denotes the Dockerfile filename, relative to Directory. Default: Dockerfile.
+	DockerfileSource string
 }
 
 // NewJob initializes tug and generates a default Job.
@@ -109,6 +112,11 @@ func (o Job) runBatch() error {
 	}
 
 	cmd.Args = append(cmd.Args, "-t", *o.ImageName)
+
+	if o.DockerfileSource != "" {
+		cmd.Args = append(cmd.Args, "-f", o.DockerfileSource)
+	}
+
 	cmd.Args = append(cmd.Args, o.Directory)
 
 	if o.Debug {

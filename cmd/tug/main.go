@@ -18,6 +18,7 @@ var flagExcludeArch = flag.String("exclude-arch", "", "exclude architecture targ
 var flagGetPlatforms = flag.Bool("get-platforms", false, "Get available buildx platforms")
 var flagLs = flag.String("ls", "", "List buildx cache for the given image name, of the form name[:tag]")
 var flagT = flag.String("t", "", "Docker image name, of the form name[:tag]")
+var flagF = flag.String("f", "", "Dockerfile source filename (default: Dockerfile)")
 var flagJobs = flag.Int("jobs", 4, "Number of concurrent build jobs. Zero indicates no restriction.")
 var flagClean = flag.Bool("clean", false, "Remove junk resources (buildx cache; buildx builder)")
 var flagHelp = flag.Bool("help", false, "Show usage information")
@@ -105,6 +106,10 @@ func main() {
 
 	if *flagT != "" {
 		job.ImageName = flagT
+	}
+
+	if *flagF != "" {
+		job.DockerfileSource = *flagF
 	}
 
 	args := flag.Args()
