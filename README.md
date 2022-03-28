@@ -33,7 +33,9 @@ buildx is hard. tug is easy.
 
 When Docker introduced the buildx subsystem, their goals included making buildx operationally successful. But not necessarily as straightforward, consistent, and intuitive as single-platform `docker` commands. (Assuming that you consider Docker *straightforward, consistent, and intuitive*, ha.) We have run extensive drills on what buildx has to offer, and wrapped this into a neat little package called tug.
 
-We are not replacing buildx, we just provide a proven workflow for high level buildx operation. We hope tug helps you to jumpstart multi-platform projects and even learn some fundamental buildx commands along the way. If you're curious to see more buildx gears turning, apply the `tug -debug` flag.
+We are not replacing buildx, we just provide a proven workflow for high level buildx operation. We hope tug helps you to jumpstart multi-platform projects and even learn some fundamental buildx commands along the way.
+
+You can see more Docker gears turning, apply the `tug -debug` flag. tug respects your time, but also rewards curiosity.
 
 # DOCUMENTATION
 
