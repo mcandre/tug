@@ -56,8 +56,8 @@ type Job struct {
 }
 
 // NewJob initializes tug and generates a default Job.
-func NewJob() (*Job, error) {
-	platforms, err := AvailablePlatforms()
+func NewJob(debug bool) (*Job, error) {
+	platforms, err := AvailablePlatforms(debug)
 
 	if err != nil {
 		return nil, err

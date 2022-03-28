@@ -29,17 +29,11 @@ Hello World!
 
 # MOTIVATION
 
-Why Docker?
+buildx is hard. tug is easy.
 
-Docker containerization technology has revolutionized software. Developers can enjoy easier development environment setup. Enormous amounts of disk space can be freed up when switching between different software projects. The entire build environment can be simulated accurately, ensuring new contributors can quickly iterate on the product. For users, cloud services running in Kubernetes containers exhibit a much higher degree of precision and reliability, compared with older, manual ways of system administration. Docker did not invent build reproducibility or container technology, but Docker's ease of use and the popular Docker Hub registry have paved the way for widespread adoption of modern software organization principles.
+When Docker introduced the buildx subsystem, their goals included making buildx operationally successful. But not necessarily as straightforward, consistent, and intuitive as single-platform `docker` commands. (Assuming that you consider Docker *straightforward, consistent, and intuitive*, ha.) We have run extensive drills on what buildx has to offer, and wrapped this into a neat little package called tug.
 
-Why multi-platform?
-
-Multi-platform images help developers to serve users across more user environments. For example, a developer who builds Docker images from a classic workstation (amd64) can more confidently support users consuming the images on a modern M1 Mac or Raspberry Pi (arm64). Multi-platform images are the glue that binds these software components together in a working fashion.
-
-Why tug?
-
-In particular, the docker buildx subsystem provides fundamental operations in support of managing multi-platform images. However, Docker has grown to a large, complicated supersystem requiring a significant amount of handholding for common tasks. This presents the opportunity for tug to come by and pick up the slack. tug simply chains together buildx primitives into larger, more practical workflows.
+We are not replacing buildx, we just provide a proven workflow for high level buildx operation. We hope tug helps you to jumpstart multi-platform projects and even learn some fundamental buildx commands along the way. If you're curious to see more buildx gears turning, apply the `tug -debug` flag.
 
 # DOCUMENTATION
 

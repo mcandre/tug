@@ -28,9 +28,11 @@ var flagVersion = flag.Bool("version", false, "Show version information")
 func main() {
 	flag.Parse()
 
+	debug := *flagDebug
+
 	switch {
 	case *flagClean:
-		os.Exit(tug.Clean())
+		os.Exit(tug.Clean(debug))
 	case *flagHelp:
 		flag.PrintDefaults()
 		os.Exit(0)
@@ -45,7 +47,7 @@ func main() {
 	}
 
 	if *flagGetPlatforms {
-		platforms, err := tug.AvailablePlatforms()
+		platforms, err := tug.AvailablePlatforms(debug)
 
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "%v", err)
@@ -68,13 +70,13 @@ func main() {
 		os.Exit(0)
 	}
 
-	job, err := tug.NewJob()
+	job, err := tug.NewJob(debug)
 
 	if err != nil {
 		panic(err)
 	}
 
-	job.Debug = *flagDebug
+	job.Debug = debug
 
 	if *flagPlatforms != "" {
 		extraPlatformStrings := strings.Split(*flagPlatforms, ",")

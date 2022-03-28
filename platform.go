@@ -3,6 +3,7 @@ package tug
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"regexp"
@@ -74,17 +75,22 @@ func (o Platforms) Less(i int, j int) bool {
 }
 
 // EnsureTugBuilder prepares the tug buildx builder.
-func EnsureTugBuilder() error {
+func EnsureTugBuilder(debug bool) error {
 	cmd := exec.Command("docker")
 	cmd.Args = []string{"docker", "buildx", "create", "--bootstrap", "--name", TugBuilderName, "--node", TugNodeName}
 	cmd.Env = os.Environ()
 	cmd.Stderr = os.Stderr
+
+	if debug {
+		log.Printf("Command: %v", cmd)
+	}
+
 	return cmd.Run()
 }
 
 // AvailablePlatforms initializes tug and reports the available buildx platforms.
-func AvailablePlatforms() ([]Platform, error) {
-	if err := EnsureTugBuilder(); err != nil {
+func AvailablePlatforms(debug bool) ([]Platform, error) {
+	if err := EnsureTugBuilder(debug); err != nil {
 		return nil, err
 	}
 
@@ -92,6 +98,11 @@ func AvailablePlatforms() ([]Platform, error) {
 	cmd.Args = []string{"docker", "buildx", "inspect", TugBuilderName}
 	cmd.Env = os.Environ()
 	cmd.Stderr = os.Stderr
+
+	if debug {
+		log.Printf("Command: %v", cmd)
+	}
+
 	stdoutChild, err := cmd.StdoutPipe()
 
 	if err != nil {
