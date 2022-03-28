@@ -65,25 +65,38 @@ FreeBSD
 
 # USAGE
 
-`tug -get-platforms` lists available platforms. Generally of the form `linux/*`.
+`tug -get-platforms` lists available platforms.
 
-`tug -ls <name>` lists any buildx cache entries present for the given image name, of the form `name[:tag]`.
+`tug -ls <name>` lists cached buildx entries, for the given image name (format `name[:tag]`).
 
-`tug -t <name>` builds multi-platform images into the buildx cache, of the form `name[:tag]`.
+`tug -t <name>` builds multi-platform images with the given image name (format `name[:tag]`). This is the essential tug build command.
 
-* `-debug` enables additional logging. In case of some buildx error.
-* `-platforms <list>` enables additional platforms. By default, tug targets all available supported platforms, minus any exceedingly niche platforms; See `-get-platforms`. The list is space delimited.
-* `-exclude-os <list>` / `-exclude-arch <list>` skip the specified operating systems and/or architectures. For example, any variants unsupported by your `FROM` base image. The list is space delimited.
-* `-load <platform>` copies an image to the local Docker registry as a side effect of the build. By default, Docker does not copy any buildx images to the local Docker registry as witnessed by `docker image`, `docker run`, etc. Select an appropriate `linux/<architecture>` platform based on your host machine. Typically `-load linux/amd64` for traditional hosts, or `-load linux/arm64` for newer arm64 hosts.
-* `-push` uploads buildx cached images to the remote Docker registry, as a side effect of the image build process. This works around gaps in the buildx subsystem for conventional build, push workflows.
-* `-extra <list>` sends additional command line flags to `docker buildx build` commands. The list is comma delimited.
+`tug -clean` cleans up after junk resources, including the buildx image cache and the tug buildx builder.
+
+Notable options:
+
+* `-debug` enables additional logging.
+* `-exclude-os <list>` rejects image operating systems from builds. The list is comma delimited.
+* `-exclude-arch <list>` rejects image architectures from builds. The list is comma delimited.
+* `-load <os/arch>` copies an image of the given platform from the buildx cache to the local Docker registry as a side effect of the build. By default, multi-platform do not appear in the main local image cache. Mainly useful to prepare quick `docker run`... tests of `linux/amd64` platform images.
+* `-push` uploads buildx cached images to the remote Docker registry, as a side effect of the build. Normally, multi-platform images cannot be pushed from the main local cache, because most platforms are do not support loading into the main local cache.
 * `.` or `<directory>` are optional trailing arguments for the Docker build directory. We default to the current working directory.
 
-`tug -clean` empties the buildx image cache and removes the `tug` builder.
+See `tug -help` for more options.
 
-See `tug -help` for more detail.
+# FAQ
 
-# tug-in-docker
+## How do I get started?
+
+Practice basic, single-platform [Docker](https://www.docker.com/). As you gain confidence with Docker, you can extend this work into the realm of multi-platform images.
+
+See the [example](example/) project, which can be built with plain `docker`, or with `docker buildx`, or with `tug`.
+
+## Unsupported platform?
+
+Depends on your particular base image. Each base image on Docker Hub, for example, is a little platform snowflake. A base image usually supports some smaller subset of the universe of platform combinations. When in doubt, grow your `-exclude-arch` list and retry the build.
+
+## tug-in-docker?
 
 Running tug itself within a Docker context, such as for CI/CD, would naturally require Docker-in-Docker privileges. See the relevant documentation for your particular cluster environment, such as Kubernetes.
 
