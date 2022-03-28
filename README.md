@@ -55,6 +55,14 @@ $ go install github.com/mcandre/tug/cmd/tug@latest
 
 * [Docker](https://www.docker.com/) 20.10.12+
 
+## Recommended
+
+* Apply `DOCKER_DEFAULT_PLATFORM` = `linux/amd64` environment variable
+
+Regardless of target application environment, we encourage an amd64 compatible build environment. This tends to improve build reliability.
+
+In time, we may revisit this recommendation. For now, an amd64 compatible host affords better chances for successful cross-compilation than trying, for example, to build `mips64` targets from `s390x` hosts.
+
 # CONTRIBUTING
 
 For more information on developing tug itself, see [DEVELOPMENT.md](DEVELOPMENT.md).
