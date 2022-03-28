@@ -92,6 +92,8 @@ Practice basic, single-platform [Docker](https://www.docker.com/). As you gain c
 
 See the [example](example/) project, which can be built with plain `docker`, or with `docker buildx`, or with `tug`.
 
+For an advanced illustration, see how the [snek](https://github.com/mcandre/snek) project builds its Docker images.
+
 ## Unsupported platform?
 
 Depends on your particular base image. Each base image on Docker Hub, for example, is a little platform snowflake. A base image usually supports some smaller subset of the universe of platform combinations. When in doubt, grow your `-exclude-arch` list and retry the build.
