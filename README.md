@@ -92,7 +92,7 @@ Practice basic, single-platform [Docker](https://www.docker.com/). As you gain c
 
 See the [example](example/) project, which can be built with plain `docker`, or with `docker buildx`, or with `tug`.
 
-For an advanced illustration, see how the [snek](https://github.com/mcandre/snek) project builds its Docker images.
+Apply the `tug -debug`... option to see more commands. Follow the basic, low level [buildx documentation](https://docs.docker.com/buildx/working-with-buildx/). For a more advanced illustration, see how the [snek](https://github.com/mcandre/snek) project builds its Docker images.
 
 ## Unsupported platform?
 
