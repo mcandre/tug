@@ -1,7 +1,7 @@
 # BUILDTIME REQUIREMENTS
 
-* [Go](https://golang.org/) 1.17+
-* [accio](https://github.com/mcandre/accio) 0.0.2
+* [Go](https://golang.org/) 1.19+
+* [accio](https://github.com/mcandre/accio) 0.0.3
 * [Docker](https://www.docker.com/) 20.10.12+
 
 ## Recommended
