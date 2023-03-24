@@ -116,10 +116,11 @@ Running tug itself within a Docker context, such as for CI/CD, would naturally r
 
 # SEE ALSO
 
-* [factorio](https://github.com/mcandre/factorio) ports Go applications.
-* [gox](https://github.com/mitchellh/gox), an older Go cross-compiler wrapper.
-* [LLVM](https://llvm.org/) bitcode offers an abstract assembler format for C/C++ code.
-* [snek](https://github.com/mcandre/snek) ports native C/C++ applications.
-* [tonixxx](https://github.com/mcandre/tonixxx) ports applications of any programming language.
-* [WASM](https://webassembly.org/) provides a portable interface for C/C++ code.
-* [xgo](https://github.com/crazy-max/xgo) supports Go projects with native cgo dependencies.
+* [cross](https://github.com/cross-rs/cross) generates Rust ports
+* [factorio](https://github.com/mcandre/factorio) ports Go applications
+* [gox](https://github.com/mitchellh/gox), an older Go cross-compiler wrapper
+* [LLVM](https://llvm.org/) bitcode offers an abstract assembler format for C/C++ code
+* [snek](https://github.com/mcandre/snek) ports native C/C++ applications
+* [tonixxx](https://github.com/mcandre/tonixxx) ports applications of any programming language
+* [WASM](https://webassembly.org/) provides a portable interface for C/C++ code
+* [xgo](https://github.com/crazy-max/xgo) supports Go projects with native cgo dependencies
