@@ -116,7 +116,7 @@ Running tug itself within a Docker context, such as for CI/CD, would naturally r
 
 # SEE ALSO
 
-* [cross](https://github.com/cross-rs/cross) generates Rust ports
+* [crit](https://github.com/mcandre/crit) generates Rust ports
 * [factorio](https://github.com/mcandre/factorio) ports Go applications
 * [gox](https://github.com/mitchellh/gox), an older Go cross-compiler wrapper
 * [LLVM](https://llvm.org/) bitcode offers an abstract assembler format for C/C++ code
