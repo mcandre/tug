@@ -57,6 +57,7 @@ $ go install github.com/mcandre/tug/cmd/tug@latest
 
 ## Recommended
 
+* [Docker First Aid Kit](https://github.com/mcandre/docker-first-aid-kit)
 * Apply `DOCKER_DEFAULT_PLATFORM` = `linux/amd64` environment variable
 
 Regardless of target application environment, we encourage an amd64 compatible build environment. This tends to improve build reliability.
