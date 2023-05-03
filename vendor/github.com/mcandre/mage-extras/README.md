@@ -48,14 +48,18 @@ Mage is highly agnostic about workflows. mage-extras is a little more opinionate
 
 https://godoc.org/github.com/mcandre/mage-extras
 
+# LICENSE
+
+FreeBSD
+
 # RUNTIME REQUIREMENTS
 
 * [Mage](https://magefile.org/) (e.g., `go install github.com/magefile/mage`)
 
 ## Recommended
 
-* [accio](https://github.com/mcandre/accio) (e.g., `go install github.com/mcandre/accio/cmd/accio@v0.0.3`)
-* [karp](https://github.com/mcandre/karp) (e.g. `go install https://github.com/mcandre/karp/...`) for conveniently browsing coverage reports.
+* [accio](https://github.com/mcandre/accio) (e.g., `go install github.com/mcandre/accio/cmd/accio`)
+* [karp](https://github.com/mcandre/karp) (e.g. `go install github.com/mcandre/karp/...`) for conveniently browsing coverage reports.
 
 # CONTRIBUTING
 
