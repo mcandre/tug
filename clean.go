@@ -10,7 +10,7 @@ import (
 // RemoveBuildxImageCache deletes any images/layers in the active buildx cache.
 func RemoveBuildxImageCache(debug bool) error {
 	cmd := exec.Command("docker")
-	cmd.Args = []string{"docker", "buildx", "prune", "--force", "--all"}
+	cmd.Args = []string{"docker", "buildx", "prune", "--force"}
 	cmd.Env = os.Environ()
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
