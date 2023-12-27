@@ -23,7 +23,7 @@ var Default = Test
 func Snyk() error { return mageextras.SnykTest() }
 
 // DockerScout runs a Docker security audit.
-func DockerScout() error { return mageextras.DockerScout("mcandre/tug-demo") }
+func DockerScout() error { return mageextras.DockerScout("-e", "mcandre/tug-demo") }
 
 // Audit runs security audits.
 func Audit() error {
