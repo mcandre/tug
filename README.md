@@ -51,6 +51,10 @@ https://github.com/mcandre/tug/releases
 $ go install github.com/mcandre/tug/cmd/tug@latest
 ```
 
+# LICENSE
+
+BSD-2-Clause
+
 # RUNTIME REQUIREMENTS
 
 * [Docker](https://www.docker.com/) 20.10.12+
@@ -67,10 +71,6 @@ In time, we may revisit this recommendation. For now, an amd64 compatible host a
 # CONTRIBUTING
 
 For more information on developing tug itself, see [DEVELOPMENT.md](DEVELOPMENT.md).
-
-# LICENSE
-
-FreeBSD
 
 # USAGE
 
