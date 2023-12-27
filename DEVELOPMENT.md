@@ -1,6 +1,6 @@
 # BUILDTIME REQUIREMENTS
 
-* [Go](https://golang.org/) 1.20.2+
+* [Go](https://golang.org/) 1.21.5+
 * [Node.js](https://nodejs.org/en) 16.14.2+
 * [Docker](https://www.docker.com/) 20.10.12+
 * [Rust](https://www.rust-lang.org/) 1.68.2+

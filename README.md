@@ -76,7 +76,7 @@ FreeBSD
 
 `tug -get-platforms` lists available platforms.
 
-`tug -ls <name>` lists cached buildx entries, for the given image name (format `name[:tag]`).
+`tug -ls <name>` lists cached buildx entries, for the given image name (format `name[:tag]`). Note that this lookup targets primarily remotely pushed images.
 
 `tug -t <name>` builds multi-platform images with the given image name (format `name[:tag]`). This is the essential tug build command.
 
@@ -88,7 +88,7 @@ Notable options:
 * `-exclude-os <list>` rejects image operating systems from builds. The list is comma delimited.
 * `-exclude-arch <list>` rejects image architectures from builds. The list is comma delimited.
 * `-load <os/arch>` copies an image of the given platform from the buildx cache to the local Docker registry as a side effect of the build. By default, multi-platform do not appear in the main local image cache. Mainly useful to prepare quick `docker run`... tests of `linux/amd64` platform images.
-* `-push` uploads buildx cached images to the remote Docker registry, as a side effect of the build. Normally, multi-platform images cannot be pushed from the main local cache, because most platforms are do not support loading into the main local cache.
+* `-push` uploads buildx cached images to the remote Docker registry, as a side effect of the build. Normally, multi-platform images cannot be pushed from the main local cache, because most platforms do not support loading into the main local cache.
 * `.` or `<directory>` are optional trailing arguments for the Docker build directory. We default to the current working directory.
 
 See `tug -help` for more options.
