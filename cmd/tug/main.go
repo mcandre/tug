@@ -125,7 +125,8 @@ func main() {
 		job.Directory = args[0]
 	}
 
-	if err2 := job.Run(); err != nil {
-		panic(err2)
+	if err2 := job.Run(); err2 != nil {
+		fmt.Println(err2)
+		os.Exit(1)
 	}
 }
