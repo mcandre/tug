@@ -39,7 +39,7 @@ You can see more Docker gears turning, apply the `tug -debug` flag. tug respects
 
 # DOCUMENTATION
 
-https://godoc.org/github.com/mcandre/tug
+https://pkg.go.dev/github.com/mcandre/tug
 
 # DOWNLOAD
 

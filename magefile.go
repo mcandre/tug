@@ -17,15 +17,19 @@ var artifactsPath = "bin"
 // Default references the default build task.
 var Default = Test
 
-// Snyk runs a snyk security audit.
-func Snyk() error { return mageextras.SnykTest() }
+// Govulncheck runs govulncheck.
+func Govulncheck() error { return mageextras.Govulncheck("./...") }
+
+// SnykTest runs Snyk SCA.
+func SnykTest() error { return mageextras.SnykTest() }
 
 // DockerScout runs a Docker security audit.
 func DockerScout() error { return mageextras.DockerScout("-e", "mcandre/tug-demo") }
 
 // Audit runs security audits.
 func Audit() error {
-	mg.Deps(mageextras.SnykTest)
+	mg.Deps(Govulncheck)
+	mg.Deps(SnykTest)
 	return DockerScout()
 }
 
