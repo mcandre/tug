@@ -57,7 +57,7 @@ BSD-2-Clause
 
 # RUNTIME REQUIREMENTS
 
-* [Docker](https://www.docker.com/) 20.10.12+
+* [Docker](https://www.docker.com/) 27+
 
 ## Recommended
 
