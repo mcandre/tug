@@ -4,7 +4,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/exec"
 
 	"github.com/magefile/mage/mg"
 	mageextras "github.com/mcandre/mage-extras"
@@ -33,15 +32,8 @@ func Audit() error {
 	return DockerScout()
 }
 
-// Test executes the integration test suite.
-func Test() error {
-	mg.Deps(Install)
-
-	cmd := exec.Command("tug", "-version")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
-}
+// Test runs a test suite.
+func Test() error { return mageextras.UnitTest() }
 
 // Deadcode runs deadcode.
 func Deadcode() error { return mageextras.Deadcode("./...") }
