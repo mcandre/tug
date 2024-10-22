@@ -2,11 +2,11 @@
 
 * [Docker](https://www.docker.com/) 20.10.12+
 * [Go](https://go.dev/) 1.23.2+
-* POSIX compatible [make](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html)
+* [GNU](https://www.gnu.org/software/make/) / [BSD](https://man.freebsd.org/cgi/man.cgi?make(1)) make
 * [Rust](https://www.rust-lang.org/) 1.75.0+
 * [Snyk](https://snyk.io/)
 * POSIX compatible [tar](https://pubs.opengroup.org/onlinepubs/7908799/xcu/tar.html)
-* Provision additional dev tools with `make`
+* Provision additional dev tools with `make -j 4`
 
 ## Recommended
 
