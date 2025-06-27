@@ -39,6 +39,12 @@ $ mage install
 $ mage uninstall
 ```
 
+# DOCKER PUBLISH
+
+```console
+$ mage dockerPublish
+```
+
 # LINT
 
 ```console
