@@ -1,6 +1,6 @@
 .POSIX:
 .SILENT:
-.PHONY \
+.PHONY: \
 	all \
 	go \
 	rust
