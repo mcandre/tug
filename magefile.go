@@ -21,7 +21,7 @@ var Default = Test
 func Govulncheck() error { return mageextras.Govulncheck("-scan", "package", "./...") }
 
 // Snyk runs Snyk SCA.
-func Snyk() error { return mageextras.SnykTest() }
+func Snyk() error { return mageextras.SnykTest("--dev") }
 
 // DockerPublish publishes demo images.
 func DockerPublish() error {
