@@ -117,6 +117,7 @@ Running tug itself within a Docker context, such as for CI/CD, would naturally r
 
 # SEE ALSO
 
+* [chandler](https://github.com/mcandre/chandler) normalizes executable archives
 * [crit](https://github.com/mcandre/crit) generates Rust ports
 * [factorio](https://github.com/mcandre/factorio) ports Go applications
 * [gox](https://github.com/mitchellh/gox), an older Go cross-compiler wrapper
