@@ -61,6 +61,7 @@ BSD-2-Clause
 
 ## Recommended
 
+* a host capable of running musl/Linux containers (e.g. a GNU/Linux, musl/Linux, macOS, or Windows host)
 * [Docker First Aid Kit](https://github.com/mcandre/docker-first-aid-kit)
 * Apply `DOCKER_DEFAULT_PLATFORM` = `linux/amd64` environment variable
 
