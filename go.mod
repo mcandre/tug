@@ -1,6 +1,6 @@
 module github.com/mcandre/tug
 
-go 1.25.3
+go 1.25.4
 
 tool (
 	github.com/alexkohler/nakedret/v2/cmd/nakedret
