@@ -9,8 +9,6 @@ on: # yamllint disable-line rule:truthy
 jobs:
   Audit:
     runs-on: "ubuntu-24.04"
-    env:
-      SNYK_TOKEN: "${{ secrets.SNYK_TOKEN }}"
     steps:
     - uses: "actions/checkout@v4"
     - uses: "actions/setup-go@v5"
@@ -18,11 +16,6 @@ jobs:
         go-version: "1.25.4"
     - name: "provision dev tools"
       run: "make"
-    - name: "install snyk"
-      run: |
-        curl -LO https://downloads.snyk.io/cli/stable/snyk-linux
-        sudo cp snyk-linux /bin/snyk
-        sudo chmod a+x /bin/snyk
     #
     # Docker-in-Docker GitHub Actions setup required for docker scout SAC.
     #
@@ -30,4 +23,4 @@ jobs:
     # Care when merging pull requests.
     # In any case, all CI/CD jobs can be peformed locally.
     #
-    - run: "mage govulncheck snyk"
+    - run: "mage govulncheck"

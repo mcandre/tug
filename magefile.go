@@ -20,9 +20,6 @@ var Default = Test
 // Govulncheck runs govulncheck.
 func Govulncheck() error { return mageextras.Govulncheck("-scan", "package", "./...") }
 
-// Snyk runs Snyk SCA.
-func Snyk() error { return mageextras.SnykTest("--dev") }
-
 // DockerPublish publishes demo images.
 func DockerPublish() error {
 	cmd := exec.Command(
@@ -41,11 +38,7 @@ func DockerPublish() error {
 func DockerScout() error { return mageextras.DockerScout("-e", "mcandre/tug-demo") }
 
 // Audit runs security audits.
-func Audit() error {
-	mg.Deps(Govulncheck)
-	mg.Deps(Snyk)
-	return DockerScout()
-}
+func Audit() error { return Govulncheck() }
 
 // Test runs a test suite.
 func Test() error { return mageextras.UnitTest() }
