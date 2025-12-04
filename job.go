@@ -77,7 +77,7 @@ func NewJob(debug bool) (*Job, error) {
 }
 
 // runBatch executes a batch of platforms.
-func (o Job) runBatch() error {
+func (o Job) runBatch(push bool) error {
 	cmd := exec.Command("docker")
 	cmd.Env = os.Environ()
 
@@ -98,7 +98,7 @@ func (o Job) runBatch() error {
 	var platformPairs []string
 
 	for _, platform := range o.Platforms {
-		platformPairs = append(platformPairs, platform.Format())
+		platformPairs = append(platformPairs, platform.String())
 	}
 
 	cmd.Args = append(cmd.Args, "--platform")
@@ -110,7 +110,7 @@ func (o Job) runBatch() error {
 		cmd.Args = append(cmd.Args, "--load")
 	}
 
-	if o.Push {
+	if push {
 		cmd.Args = append(cmd.Args, "--push")
 	}
 
@@ -165,11 +165,10 @@ func (o Job) Run() error {
 	}
 
 	o.Platforms = platforms
-
 	batchSize := o.BatchSize
 
 	if batchSize == 0 {
-		return o.runBatch()
+		return o.runBatch(false)
 	}
 
 	var platformGroups [][]Platform
@@ -183,24 +182,17 @@ func (o Job) Run() error {
 		o.Platforms = o.Platforms[batchSize:]
 	}
 
-	//
-	// Work around corruption glitch in buildx --push.
-	//
-	push := o.Push
-	o.Push = false
-
 	for _, platformGroup := range platformGroups {
 		o.Platforms = platformGroup
 
-		if err := o.runBatch(); err != nil {
+		if err := o.runBatch(false); err != nil {
 			return err
 		}
 	}
 
-	if push {
-		o.Push = true
+	if o.Push {
 		o.Platforms = platforms
-		return o.runBatch()
+		return o.runBatch(true)
 	}
 
 	return nil

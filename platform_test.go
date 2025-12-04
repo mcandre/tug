@@ -14,7 +14,7 @@ func TestPlatformMarshalingSymmetric(t *testing.T) {
 		t.Error(err)
 	}
 
-	platformString2 := platform.Format()
+	platformString2 := platform.String()
 
 	if platformString2 != platformString {
 		t.Errorf("expected symmetric marshaling for platform %v", platformString)

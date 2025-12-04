@@ -47,7 +47,7 @@ func ParsePlatform(s string) (*Platform, error) {
 }
 
 // Format renders a buildx platform string.
-func (o Platform) Format() string {
+func (o Platform) String() string {
 	return fmt.Sprintf("%s/%s", o.Os, o.Arch)
 }
 
@@ -71,7 +71,7 @@ func (o Platforms) Swap(i, j int) {
 // are in ascending order or not,
 // in service of sorting.
 func (o Platforms) Less(i int, j int) bool {
-	return o[i].Format() < o[j].Format()
+	return o[i].String() < o[j].String()
 }
 
 // EnsureTugBuilder prepares the tug buildx builder.

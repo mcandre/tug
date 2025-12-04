@@ -24,12 +24,14 @@ func Govulncheck() error { return mageextras.Govulncheck("-scan", "package", "./
 func DockerPublish() error {
 	cmd := exec.Command(
 		"tug",
+		"-debug",
+		"-push",
 		"-t",
 		"mcandre/tug-demo",
-		"-exclude-arch",
-		"386,arm/v6,arm/v7,ppc64le,riscv64,s390x",
 	)
 	cmd.Env = os.Environ()
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
 	cmd.Dir = "example"
 	return cmd.Run()
 }
