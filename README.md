@@ -1,6 +1,8 @@
 # tug: Multi-platform Docker rescue ship
 
-![logo](tug.png)
+# DEPRECATED
+
+Rewritten from Go to Rust. See [tuggy](https://github.com/mcandre/tuggy)
 
 # ABOUT
 
